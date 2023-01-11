@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600,700|Source+Sans+Pro:400,600,700&display=swap");
 
 body {
-  background: #ddeefc;
+  background: linear-gradient(90deg, #BBDF2B 23.66%, #00AFC8 101.77%);
   font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
+  height: 100vh;
 }
 * {
   box-sizing: border-box;

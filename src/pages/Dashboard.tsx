@@ -15,6 +15,7 @@ const Dashboard = () => {
     }).toString();
     handleGetCharacters(randoms);
   }, []);
+  
   return (
     <div>
       <h1>Dashboard</h1>
