@@ -81,7 +81,6 @@ export const Login = () => {
                 alignItems="center"
               >
                 <Image src={Logo} width="250px" height="100px"></Image>
-                <Text fontSize="lg">Hola, por favor ingresa tus datos</Text>
               </Flex>
               <FormControl>
                 <InputGroup>
@@ -91,7 +90,7 @@ export const Login = () => {
                   />
                   <Input
                     type="email"
-                    placeholder="Usuario ó email"
+                    placeholder="Email"
                     value={username}
                     onChange={(event) => setUsername(event.target.value)}
                   />
@@ -127,7 +126,7 @@ export const Login = () => {
                 alignItems="center"
               >
                 <Text fontSize="lg">¿Aún no tienes cuenta con nosotros?</Text>
-                <Link as={ReachLink} to="/auth/register">
+                <Link as={ReachLink} to="/auth/register" color='#00AFC8'>
                   Registrate aquí
                 </Link>
               </Flex>

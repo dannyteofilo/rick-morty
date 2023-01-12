@@ -1,29 +1,14 @@
-import {
-  Box,
-  Flex,
-  Stack,
-  Text,
-  Image,
-  useBreakpointValue,
-} from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Box, Flex, Text, Image } from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import Header from "../components/header/Header";
 import SideBar from "../components/sidebar/SideBar";
 import { generateNumberRandom } from "../helpers/common";
 import { useAppContext } from "../hooks/useAppContext";
 import { useFetchData } from "../hooks/useFetchData";
 
-const smVariant = { navigation: "drawer", navigationButton: true };
-const mdVariant = { navigation: "sidebar", navigationButton: false };
-
 const Dashboard = () => {
   const { user, characters } = useAppContext();
   const { handleGetCharacters } = useFetchData();
-
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const variants = useBreakpointValue({ base: smVariant, md: mdVariant });
-
-  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   useEffect(() => {
     const randoms = generateNumberRandom({
@@ -37,17 +22,13 @@ const Dashboard = () => {
   return (
     <>
       <Header userName={user}></Header>
-      <SideBar
-        variant={variants?.navigation}
-        isOpen={isSidebarOpen}
-        onClose={toggleSidebar}
-      ></SideBar>
+      <SideBar></SideBar>
       <Flex
         height="91vh"
         bgGradient="linear(137.73deg, #BBDF2B -107.85%, #00AFC8 107.28%);"
         ml={{ base: 0, md: 60 }}
       >
-        <Flex flexWrap="wrap" mb="2" overflow='scroll'>
+        <Flex flexWrap="wrap" mb="2" overflow="scroll">
           {characters.map((item) => (
             <Box
               cursor="pointer"

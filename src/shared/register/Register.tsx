@@ -71,6 +71,7 @@ const Register = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const { password, passworConfirm } = formData;
     event.preventDefault();
+    console.log(isValidPassword(password))
     if (!isValidPassword(password)) {
       setError(
         "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales"
@@ -120,7 +121,6 @@ const Register = () => {
                 flexDir="column"
               >
                 <Image src={Logo} width="250px" height="100px"></Image>
-                <Text fontSize="lg">Hola, por favor ingresa tus datos</Text>
               </Flex>
               <FormControl>
                 <InputGroup>
@@ -131,6 +131,7 @@ const Register = () => {
                   <Input
                     type="email"
                     name="name"
+                    placeholder="Email"
                     value={name}
                     onChange={handleChange}
                   />
@@ -145,6 +146,7 @@ const Register = () => {
                   <Input
                     type={showPassword ? "text" : "password"}
                     name="password"
+                    placeholder="Contraseña"
                     value={password}
                     onChange={(event) => {
                       showAlert && setShowAlert(false);
@@ -167,6 +169,7 @@ const Register = () => {
                   <Input
                     type={showPasswordConfirm ? "text" : "password"}
                     name="passworConfirm"
+                    placeholder="Confirmar contraseña"
                     value={passworConfirm}
                     onChange={(event) => {
                       showAlert && setShowAlert(false);
@@ -215,9 +218,9 @@ const Register = () => {
                 justifyContent="center"
                 alignItems="center"
               >
-                <Text fontSize="lg">Ya tienes cuenta con nosotros?</Text>
-                <Link as={ReachLink} to="/auth/login">
-                  Iniciar Sesion
+                <Text fontSize="lg">¿Ya tienes cuenta con nosotros?</Text>
+                <Link as={ReachLink} to="/auth/login" color='#00AFC8'>
+                  Iniciar sesión
                 </Link>
               </Flex>
             </Stack>

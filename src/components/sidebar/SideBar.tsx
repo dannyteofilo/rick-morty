@@ -1,23 +1,7 @@
-import {
-  Box,
-  Button,
-  Drawer,
-  DrawerOverlay,
-  DrawerCloseButton,
-  DrawerHeader,
-  DrawerBody,
-  DrawerContent,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, VStack } from "@chakra-ui/react";
 import MenuItem from "../menuItem/MenuItem";
 
-interface Props {
-  onClose: Function;
-  isOpen: boolean;
-  variant: "drawer" | "sidebar";
-}
-
-const SidebarContent = ({ onClick }: { onClick: Function }) => (
+const SidebarContent = () => (
   <VStack>
     <MenuItem to="/">Home</MenuItem>
     <MenuItem to="/"> Explore </MenuItem>
@@ -39,8 +23,8 @@ const SidebarContent = ({ onClick }: { onClick: Function }) => (
   </VStack>
 );
 
-const Sidebar = ({ isOpen, variant, onClose }: any) => {
-  return variant === "sidebar" ? (
+const Sidebar = () => {
+  return (
     <Box
       position="fixed"
       left={0}
@@ -50,20 +34,8 @@ const Sidebar = ({ isOpen, variant, onClose }: any) => {
       h="100%"
       bg="#121418"
     >
-      <SidebarContent onClick={onClose} />
+      <SidebarContent />
     </Box>
-  ) : (
-    <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
-      <DrawerOverlay>
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>Chakra-UI</DrawerHeader>
-          <DrawerBody>
-            <SidebarContent onClick={onClose} />
-          </DrawerBody>
-        </DrawerContent>
-      </DrawerOverlay>
-    </Drawer>
   );
 };
 
