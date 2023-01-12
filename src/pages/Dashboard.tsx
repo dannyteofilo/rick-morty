@@ -1,11 +1,29 @@
-import React, { useEffect } from "react";
+import {
+  Box,
+  Flex,
+  Stack,
+  Text,
+  Image,
+  useBreakpointValue,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import Header from "../components/header/Header";
+import SideBar from "../components/sidebar/SideBar";
 import { generateNumberRandom } from "../helpers/common";
 import { useAppContext } from "../hooks/useAppContext";
 import { useFetchData } from "../hooks/useFetchData";
 
+const smVariant = { navigation: "drawer", navigationButton: true };
+const mdVariant = { navigation: "sidebar", navigationButton: false };
+
 const Dashboard = () => {
   const { user, characters } = useAppContext();
   const { handleGetCharacters } = useFetchData();
+
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const variants = useBreakpointValue({ base: smVariant, md: mdVariant });
+
+  const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
 
   useEffect(() => {
     const randoms = generateNumberRandom({
@@ -15,26 +33,49 @@ const Dashboard = () => {
     }).toString();
     handleGetCharacters(randoms);
   }, []);
-  
+
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <span>welcome: {user}</span>
-      <ul>
-        {characters.map((item) => (
-          <li key={item.id}>
-            <>
-              <h5>{item.name}</h5>
-              <img
-                src={item.image}
-                alt=""
-                style={{ width: "200px", height: "200px" }}
-              />
-            </>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <Header userName={user}></Header>
+      <SideBar
+        variant={variants?.navigation}
+        isOpen={isSidebarOpen}
+        onClose={toggleSidebar}
+      ></SideBar>
+      <Flex
+        height="91vh"
+        bgGradient="linear(137.73deg, #BBDF2B -107.85%, #00AFC8 107.28%);"
+        ml={{ base: 0, md: 60 }}
+      >
+        <Flex flexWrap="wrap" mb="2" overflow='scroll'>
+          {characters.map((item) => (
+            <Box
+              cursor="pointer"
+              height={{ base: 200, md: 300, sm: 200 }}
+              width={{ base: 200, md: 300, sm: 150 }}
+              key={item.id}
+              m={8}
+              p={2}
+              borderRadius="8px"
+              boxShadow="0px 35px 14px rgba(0, 0, 0, 0.01), 0px 20px 12px rgba(0, 0, 0, 0.05), 0px 9px 9px rgba(0, 0, 0, 0.09), 0px 2px 5px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1)"
+              backgroundColor="#1C1F24"
+              display="flex"
+              flexDirection="column"
+            >
+              <Text
+                color="white"
+                textOverflow="ellipsis"
+                overflow="hidden"
+                whiteSpace="nowrap"
+              >
+                {item.name}
+              </Text>
+              <Image mt={2} src={item.image} alt="" height="90%" />
+            </Box>
+          ))}
+        </Flex>
+      </Flex>
+    </>
   );
 };
 
