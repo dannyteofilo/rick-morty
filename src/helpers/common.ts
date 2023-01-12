@@ -1,10 +1,8 @@
 import { RandomsInterface } from "../interfaces/helpers/Randoms.interface";
 
-const passwordRegex =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
-
 export const isValidPassword = (password: string) => {
-  return passwordRegex.test(password);
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/
+  return passwordRegex.test(String(password));
 };
 
 export const generateNumberRandom = ({ min, max, total }: RandomsInterface) => {
