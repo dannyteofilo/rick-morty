@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Children, useEffect, useState } from "react";
 import {
   Box,
   Link,
@@ -14,15 +14,16 @@ import {
   InputLeftElement,
   chakra,
   InputRightElement,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import Logo from "../../assets/icons/logo.png";
 import { Link as ReachLink, useLocation, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../hooks/useAppContext";
-import { FaUserAlt, FaLock } from "react-icons/fa";
+import { FaUserAlt, FaLock, FaEye } from "react-icons/fa";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
+const CFaEye = chakra(FaEye);
 
 export const Login = () => {
   const { signIn } = useAppContext();
@@ -32,8 +33,17 @@ export const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleShowClick = () => setShowPassword(!showPassword);
+
+  useEffect(() => {
+    if (username !== "" && password !== "") {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  }, [username, password]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -55,7 +65,7 @@ export const Login = () => {
         alignItems="center"
       >
         <Avatar bg="teal.500" />
-        <Heading color="white">Login</Heading>
+        <Heading color="white">Ingresar</Heading>
         <Box minW={{ base: "90%", md: "468px" }}>
           <form onSubmit={handleSubmit}>
             <Stack
@@ -63,9 +73,15 @@ export const Login = () => {
               p="1rem"
               backgroundColor="whiteAlpha.900"
               boxShadow="md"
+              borderRadius="10px"
             >
-              <Flex justifyContent="center" alignItems="center">
+              <Flex
+                flexDir="column"
+                justifyContent="center"
+                alignItems="center"
+              >
                 <Image src={Logo} width="250px" height="100px"></Image>
+                <Text fontSize="lg">Hola, por favor ingresa tus datos</Text>
               </Flex>
               <FormControl>
                 <InputGroup>
@@ -75,7 +91,7 @@ export const Login = () => {
                   />
                   <Input
                     type="email"
-                    placeholder="email address"
+                    placeholder="Usuario ó email"
                     value={username}
                     onChange={(event) => setUsername(event.target.value)}
                   />
@@ -90,26 +106,31 @@ export const Login = () => {
                   />
                   <Input
                     type={showPassword ? "text" : "password"}
-                    placeholder="Password"
+                    placeholder="Contraseña"
                     value={password}
                     onChange={(event) => setPassword(event.target.value)}
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>
-                      {showPassword ? "Hide" : "Show"}
+                      <CFaEye color="gray.300" />
                     </Button>
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
-              <Button type="submit" colorScheme="blue" width="full">
+              <Button type="submit" colorScheme="blue" width="full" disabled={isButtonDisabled}>
                 Iniciar sesión
               </Button>
               <hr />
-              <p></p>
-              <Text fontSize='lg'>Aun no tienes cuenta con nosotros?</Text>
-              <Link as={ReachLink} to="/auth/register">
-                Registrate aqui
-              </Link>
+              <Flex
+                flexDir="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Text fontSize="lg">¿Aún no tienes cuenta con nosotros?</Text>
+                <Link as={ReachLink} to="/auth/register">
+                  Registrate aquí
+                </Link>
+              </Flex>
             </Stack>
           </form>
         </Box>
