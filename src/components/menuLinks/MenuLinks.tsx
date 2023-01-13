@@ -1,4 +1,4 @@
-import { Box, Button, Stack } from "@chakra-ui/react";
+import { Box, Button, Stack, Text } from "@chakra-ui/react";
 import MenuItem from "../menuItem/MenuItem";
 
 const MenuLinks = ({ isOpen }: any) => {
@@ -19,17 +19,7 @@ const MenuLinks = ({ isOpen }: any) => {
         <MenuItem to="/"> Blog </MenuItem>
         <MenuItem to="/"> Contact </MenuItem>
         <MenuItem to="/auth/login" isLast>
-          <Button
-            size="sm"
-            rounded="md"
-            color="blue"
-            bg={["white", "white", "primary.500", "primary.500"]}
-            _hover={{
-              bg: ["primary.100", "primary.100", "primary.600", "primary.600"],
-            }}
-          >
-            Sair
-          </Button>
+          Salir
         </MenuItem>
       </Stack>
     </Box>

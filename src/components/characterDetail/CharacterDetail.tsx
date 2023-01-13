@@ -27,8 +27,8 @@ const CharacterDetail: React.FC<CharactersInterface> = (detail) => {
           <ModalBody>
             <Stack mt="6" spacing="3">
               <Heading size="md">{detail.name}</Heading>
-              <Image src={detail.image} />
-              <Text as="b">estatus:</Text>
+              <Image src={detail.image}  borderRadius={4} />
+              <Text as="b">Estatus:</Text>
               <Text as="i">{detail.status}</Text>
               <Text as="b">Especie:</Text>
               <Text as="i">{detail.species}</Text>

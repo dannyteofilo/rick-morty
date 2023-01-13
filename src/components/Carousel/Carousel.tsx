@@ -11,7 +11,7 @@ const CarouselSlide = () => {
   return (
     <Carousel infiniteLoop>
       {images.map((slide) => (
-        <Image src={slide} height="250px" width="600px" objectFit='cover' backgroundPosition='top'/>
+        <Image src={slide} height="250px" width="600px" objectFit='cover' backgroundPosition='top' borderRadius={8}/>
       ))}
     </Carousel>
   );

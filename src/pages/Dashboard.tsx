@@ -1,4 +1,13 @@
-import { Box, Flex, Text, Image, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  Image,
+  Spinner,
+  chakra,
+  shouldForwardProp,
+  Button,
+} from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import CarouselSlide from "../components/Carousel/Carousel";
 import CharacterDetail from "../components/characterDetail/CharacterDetail";
@@ -39,7 +48,7 @@ const Dashboard = () => {
         ml={{ base: 0, md: 60 }}
         overflow="scroll"
       >
-        <Flex w="80%" margin="0 auto" mt={4}>
+        <Flex w="80%" margin="0 auto" mt={8}>
           <CarouselSlide></CarouselSlide>
         </Flex>
         <Flex flexWrap="wrap" mb="2" textAlign="center" justifyContent="center">
@@ -61,17 +70,25 @@ const Dashboard = () => {
               onClick={() => handleShowDetail(item)}
             >
               <Text
-                color="white"
+                color="#BBDF2B"
+                fontSize={20}
                 textOverflow="ellipsis"
                 overflow="hidden"
                 whiteSpace="nowrap"
               >
                 {item.name}
               </Text>
-              <Image mt={2} src={item.image} alt="" height="90%" />
+              <Image
+                mt={2}
+                src={item.image}
+                alt=""
+                height="85%"
+                borderRadius={4}
+              />
             </Box>
           ))}
         </Flex>
+        <Box></Box>
       </Flex>
       {detail !== null && <CharacterDetail {...detail} />}
     </>
