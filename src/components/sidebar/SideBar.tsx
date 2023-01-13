@@ -3,10 +3,10 @@ import MenuItem from "../menuItem/MenuItem";
 
 const SidebarContent = () => (
   <VStack>
-    <MenuItem to="/">Home</MenuItem>
-    <MenuItem to="/"> Explore </MenuItem>
-    <MenuItem to="/"> Blog </MenuItem>
-    <MenuItem to="/"> Contact </MenuItem>
+    <MenuItem to="/" mb={4}>Home</MenuItem>
+    <MenuItem to="/" mb={4}> Explore </MenuItem>
+    <MenuItem to="/" mb={4}> Blog </MenuItem>
+    <MenuItem to="/" mb={4}> Contact </MenuItem>
     <MenuItem to="/auth/login" isLast>
       <Button
         size="sm"
@@ -29,6 +29,7 @@ const Sidebar = () => {
       position="fixed"
       left={0}
       p={5}
+      pt={20}
       w="250px"
       top={70}
       h="100%"

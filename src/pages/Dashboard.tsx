@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Image } from "@chakra-ui/react";
+import { Box, Flex, Text, Image, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import CarouselSlide from "../components/Carousel/Carousel";
 import CharacterDetail from "../components/characterDetail/CharacterDetail";
@@ -10,7 +10,7 @@ import { useFetchData } from "../hooks/useFetchData";
 import { CharactersInterface } from "../interfaces/Characters.interface";
 
 const Dashboard = () => {
-  const { user, characters } = useAppContext();
+  const { user, characters, loading } = useAppContext();
   const { handleGetCharacters } = useFetchData();
   const [detail, setDetail] = useState<CharactersInterface | null>(null);
 
@@ -43,6 +43,7 @@ const Dashboard = () => {
           <CarouselSlide></CarouselSlide>
         </Flex>
         <Flex flexWrap="wrap" mb="2" textAlign="center" justifyContent="center">
+          {loading && <Spinner color="red.500" size="xl" />}
           {characters.map((item) => (
             <Box
               cursor="pointer"
