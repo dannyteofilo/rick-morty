@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Flex, Link, Stack, Text } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import IconLogo from "../../assets/icons/logo.png";
 import MenuLinks from "../menuLinks/MenuLinks";

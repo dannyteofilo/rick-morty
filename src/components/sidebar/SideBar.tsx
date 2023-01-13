@@ -33,6 +33,7 @@ const Sidebar = () => {
       top={70}
       h="100%"
       bg="#121418"
+      display={{base:'none',md:'block'}}
     >
       <SidebarContent />
     </Box>
