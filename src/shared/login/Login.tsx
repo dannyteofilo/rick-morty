@@ -15,18 +15,28 @@ import {
   chakra,
   InputRightElement,
   Text,
+  Container,
+  Alert,
+  AlertIcon,
+  AlertDescription,
 } from "@chakra-ui/react";
 import Logo from "../../assets/icons/logo.png";
-import { Link as ReachLink, useLocation, useNavigate } from "react-router-dom";
-import { useAppContext } from "../../hooks/useAppContext";
+import {
+  Link as ReachLink,
+  useLocation,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import { FaUserAlt, FaLock, FaEye } from "react-icons/fa";
+import { singInRequest } from "../../helpers/request";
+import { RequestInterface } from "../../interfaces/helpers/Request.interface";
+import { authProvider } from "../../api/auth";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 const CFaEye = chakra(FaEye);
 
 export const Login = () => {
-  const { signIn } = useAppContext();
   let navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
@@ -34,6 +44,8 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
+  const [error, setError] = useState("");
 
   const handleShowClick = () => setShowPassword(!showPassword);
 
@@ -45,9 +57,30 @@ export const Login = () => {
     }
   }, [username, password]);
 
+  if (authProvider.isAuth()) {
+    return <Navigate to="/" state={{ from: location }} replace />;
+  }
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    signIn(username, () => navigate(from, { replace: true }));
+    singInRequest({ email: username, password }).then(
+      (response: RequestInterface) => {
+        const { error, message, data } = response;
+        if (error) {
+          setError(message);
+          setShowAlert(true);
+        } else {
+          setError("");
+          setShowAlert(false);
+          const user = {
+            username,
+            token: data,
+          };
+          localStorage.setItem("user", JSON.stringify(user));
+          navigate(from, { replace: true });
+        }
+      }
+    );
   };
   return (
     <Flex
@@ -116,7 +149,20 @@ export const Login = () => {
                   </InputRightElement>
                 </InputGroup>
               </FormControl>
-              <Button type="submit" colorScheme="blue" width="full" disabled={isButtonDisabled}>
+              {showAlert && (
+                <Container maxW="md">
+                  <Alert status="error">
+                    <AlertIcon />
+                    <AlertDescription color="red">{error}</AlertDescription>
+                  </Alert>
+                </Container>
+              )}
+              <Button
+                type="submit"
+                colorScheme="blue"
+                width="full"
+                disabled={isButtonDisabled}
+              >
                 Iniciar sesión
               </Button>
               <hr />
@@ -126,7 +172,7 @@ export const Login = () => {
                 alignItems="center"
               >
                 <Text fontSize="lg">¿Aún no tienes cuenta con nosotros?</Text>
-                <Link as={ReachLink} to="/auth/register" color='#00AFC8'>
+                <Link as={ReachLink} to="/auth/register" color="#00AFC8">
                   Registrate aquí
                 </Link>
               </Flex>

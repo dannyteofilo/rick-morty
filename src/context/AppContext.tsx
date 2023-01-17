@@ -1,5 +1,4 @@
 import React, { createContext, useState } from "react";
-import { fakeAuthProvider } from "../api/auth";
 import { AuthContextProps } from "../interfaces/AppContext.interface";
 import { CharactersInterface } from "../interfaces/Characters.interface";
 
@@ -11,20 +10,9 @@ const Provider = AppContext.Provider;
 export const AppProvider = ({ children }: any) => {
   const [characters, setCharacters] = useState<Array<CharactersInterface>>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [user, setUser] = useState<any>(null);
-  let signIn = (newUser: string, callback: VoidFunction) => {
-    return fakeAuthProvider.signIn(() => {
-      setUser(newUser);
-      callback();
-    });
-  };
+  const [user, setUser] = useState<string>("");
 
-  let signOut = (callback: VoidFunction) => {
-    return fakeAuthProvider.signOut(() => {
-      setUser(null);
-      callback();
-    });
-  };
+
   return (
     <Provider
       value={{
@@ -33,8 +21,7 @@ export const AppProvider = ({ children }: any) => {
         loading,
         setLoading,
         user,
-        signIn,
-        signOut,
+        setUser,        
       }}
     >
       {children}

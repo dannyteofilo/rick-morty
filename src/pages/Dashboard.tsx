@@ -9,6 +9,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
+import { authProvider } from "../api/auth";
+// import { useValidateSession } from "../api/auth";
 import CarouselSlide from "../components/Carousel/Carousel";
 import CharacterDetail from "../components/characterDetail/CharacterDetail";
 import Header from "../components/header/Header";
@@ -36,10 +38,14 @@ const Dashboard = () => {
     setDetail(detail);
   };
 
+  const handleLogOut = ()=>{
+    authProvider.logOut()
+  }
+
   return (
     <>
       <Header userName={user}></Header>
-      <SideBar></SideBar>
+      <SideBar click={handleLogOut}></SideBar>
       <Flex
         width="100wh"
         height="91vh"
