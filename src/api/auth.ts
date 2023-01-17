@@ -1,14 +1,18 @@
-const fakeAuthProvider = {
-    isAuthenticated: false,
-    signIn(callback: VoidFunction) {
-      fakeAuthProvider.isAuthenticated = true;
-      setTimeout(callback, 100);
-    },
-    signOut(callback: VoidFunction) {
-      fakeAuthProvider.isAuthenticated = false;
-      setTimeout(callback, 100);
-    },
-  };
-  
-  export { fakeAuthProvider };
-  
+import { decodeToken } from "../helpers/common";
+
+const authProvider = {
+  isAuthenticated: false,
+  isAuth() {
+    let userString = localStorage.getItem("user");
+    let currentUser = userString ? JSON.parse(userString) : undefined;
+    if (currentUser) {
+      return !decodeToken(currentUser.token);
+    }
+    return false;
+  },
+  logOut() {
+    localStorage.clear()
+  },
+};
+
+export { authProvider };

@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Text } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import MenuItem from "../menuItem/MenuItem";
 
 const MenuLinks = ({ isOpen }: any) => {

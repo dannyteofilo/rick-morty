@@ -1,7 +1,11 @@
-import { Box, Button, VStack, Text } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
 import MenuItem from "../menuItem/MenuItem";
 
-const SidebarContent = () => (
+interface SideBarProps {
+  click: () => void;
+}
+
+const SidebarContent = ({ click }: SideBarProps) => (
   <VStack>
     <MenuItem to="/" mb={8}>
       Home
@@ -15,13 +19,13 @@ const SidebarContent = () => (
     <MenuItem to="/" mb={8}>
       Contact
     </MenuItem>
-    <MenuItem to="/auth/login" isLast textDecoration="underline">
+    <MenuItem onClick={click} isLast textDecoration="underline">
       Salir
     </MenuItem>
   </VStack>
 );
 
-const Sidebar = () => {
+const Sidebar = ({ click }: SideBarProps) => {
   return (
     <Box
       position="fixed"
@@ -34,7 +38,7 @@ const Sidebar = () => {
       bg="#121418"
       display={{ base: "none", md: "block" }}
     >
-      <SidebarContent />
+      <SidebarContent click={click} />
     </Box>
   );
 };
