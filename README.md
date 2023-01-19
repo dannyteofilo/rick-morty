@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Demo
+
+Open [https://63c9bf44590e393bade68c75--gilded-nougat-3c1f2d.netlify.app/) to view the demo app.
+
+
 ## Available Scripts
 
 In the project directory, you can run:
