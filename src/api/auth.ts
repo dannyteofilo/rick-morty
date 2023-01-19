@@ -11,7 +11,12 @@ const authProvider = {
     return false;
   },
   logOut() {
-    localStorage.clear()
+    localStorage.clear();
+  },
+  userInfo() {
+    let userString = localStorage.getItem("user");
+    let currentUser = userString ? JSON.parse(userString) : undefined;
+    return currentUser.user;
   },
 };
 

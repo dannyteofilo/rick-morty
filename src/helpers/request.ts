@@ -1,7 +1,7 @@
 import { UserLoginInterface } from "../interfaces/userLogin.interface";
 
 export const singInRequest = async (user: UserLoginInterface) => {
-  const url = `${process.env.REACT_APP_API}/api/auth/login`;
+  const url = `${process.env.REACT_APP_API}api/auth/login`;
   try {
     const resp: any = await fetch(url, {
       method: "POST",
@@ -17,7 +17,7 @@ export const singInRequest = async (user: UserLoginInterface) => {
 };
 
 export const registerRequest = async (user: UserLoginInterface) => {
-  const url = `${process.env.REACT_APP_API}/api/users`;
+  const url = `${process.env.REACT_APP_API}api/users`;
   try {
     const resp: any = await fetch(url, {
       method: "POST",

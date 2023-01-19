@@ -1,16 +1,6 @@
-import {
-  Box,
-  Flex,
-  Text,
-  Image,
-  Spinner,
-  chakra,
-  shouldForwardProp,
-  Button,
-} from "@chakra-ui/react";
+import { Box, Flex, Text, Image, Spinner } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { authProvider } from "../api/auth";
-// import { useValidateSession } from "../api/auth";
 import CarouselSlide from "../components/Carousel/Carousel";
 import CharacterDetail from "../components/characterDetail/CharacterDetail";
 import Header from "../components/header/Header";
@@ -20,8 +10,10 @@ import { useAppContext } from "../hooks/useAppContext";
 import { useFetchData } from "../hooks/useFetchData";
 import { CharactersInterface } from "../interfaces/Characters.interface";
 
+
 const Dashboard = () => {
-  const { user, characters, loading } = useAppContext();
+  const { characters, loading } = useAppContext();
+  const [user, setUser] = useState("");
   const { handleGetCharacters } = useFetchData();
   const [detail, setDetail] = useState<CharactersInterface | null>(null);
 
@@ -32,15 +24,20 @@ const Dashboard = () => {
       total: 8,
     }).toString();
     handleGetCharacters(randoms);
+    getUserInfo();
   }, []);
 
   const handleShowDetail = (detail: CharactersInterface) => {
     setDetail(detail);
   };
 
-  const handleLogOut = ()=>{
-    authProvider.logOut()
-  }
+  const handleLogOut = () => {
+    authProvider.logOut();
+  };
+
+  const getUserInfo = () => {
+    setUser(authProvider.userInfo().email);
+  };
 
   return (
     <>
