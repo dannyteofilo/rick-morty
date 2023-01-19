@@ -63,24 +63,22 @@ export const Login = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    singInRequest({ email: username, password }).then(
-      (response: RequestInterface) => {
-        const { error, message, data } = response;
-        if (error) {
-          setError(message);
-          setShowAlert(true);
-        } else {
-          setError("");
-          setShowAlert(false);
-          const user = {
-            username,
-            token: data,
-          };
-          localStorage.setItem("user", JSON.stringify(user));
-          navigate(from, { replace: true });
-        }
+    singInRequest({ email: username, password }).then((response: any) => {
+      const { errors, token, user } = response;
+      if (errors) {
+        setError(errors.errors.map((e: any) => e.msg));
+        setShowAlert(true);
+      } else {
+        setError("");
+        setShowAlert(false);
+        const userStorage = {
+          user,
+          token,
+        };
+        localStorage.setItem("user", JSON.stringify(userStorage));
+        navigate(from, { replace: true });
       }
-    );
+    });
   };
   return (
     <Flex

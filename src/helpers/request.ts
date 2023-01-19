@@ -1,10 +1,10 @@
 import { configs } from "../config";
 import { UserLoginInterface } from "../interfaces/userLogin.interface";
 
-export const singInRequest= async (user:UserLoginInterface)=>{
-  const url = `${configs.URL_Auth}api/v1/auth`;
+export const singInRequest = async (user: UserLoginInterface) => {
+  const url = `${process.env.REACT_APP_API_BASE_URL}api/auth`;
   try {
-    const resp: any = await fetch(url,{
+    const resp: any = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -15,7 +15,23 @@ export const singInRequest= async (user:UserLoginInterface)=>{
   } catch (error) {
     console.error(error);
   }
-}
+};
+
+export const registerRequest = async (user: UserLoginInterface) => {
+  const url = `${process.env.REACT_APP_API_BASE_URL}/api/users`;
+  try {
+    const resp: any = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
+    return await resp.json();
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const getCharacters = async (data: string) => {
   const url = `${configs.URL_API}api/character/${data}`;

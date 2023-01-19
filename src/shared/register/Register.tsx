@@ -22,16 +22,20 @@ import {
   Container,
 } from "@chakra-ui/react";
 import Logo from "../../assets/icons/logo.png";
-import { Link as ReachLink } from "react-router-dom";
+import { Link as ReachLink, useLocation, useNavigate } from "react-router-dom";
 import { isValidPassword } from "../../helpers/common";
 
 import { FaUserAlt, FaLock, FaEye } from "react-icons/fa";
+import { registerRequest } from "../../helpers/request";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 const CFaEye = chakra(FaEye);
 
 const Register = () => {
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
   const [formData, setFormData] = useState({
     name: "",
     password: "",
@@ -71,7 +75,7 @@ const Register = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     const { password, passworConfirm } = formData;
     event.preventDefault();
-    console.log(isValidPassword(password))
+    console.log(isValidPassword(password));
     if (!isValidPassword(password)) {
       setError(
         "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales"
@@ -83,7 +87,23 @@ const Register = () => {
       setShowAlert(true);
       return;
     } else {
-      console.log(formData);
+      registerRequest({ email: name, password }).then((response) => {
+        const { errors, token, user } = response;
+        if (errors) {
+          setError(errors.errors.map((e: any) => e.msg));
+          setShowAlert(true);
+        }
+        if (token) {
+          setError("");
+          setShowAlert(false);
+          const userStorage = {
+            user,
+            token,
+          };
+          localStorage.setItem("user", JSON.stringify(userStorage));
+          navigate(from, { replace: true });
+        }
+      });
     }
   };
 
@@ -219,7 +239,7 @@ const Register = () => {
                 alignItems="center"
               >
                 <Text fontSize="lg">¿Ya tienes cuenta con nosotros?</Text>
-                <Link as={ReachLink} to="/auth/login" color='#00AFC8'>
+                <Link as={ReachLink} to="/auth/login" color="#00AFC8">
                   Iniciar sesión
                 </Link>
               </Flex>
