@@ -1,4 +1,4 @@
-import { Slider, Image } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Slide1 from "../../assets/slide/slide1.svg";

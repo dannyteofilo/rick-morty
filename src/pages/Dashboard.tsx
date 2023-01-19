@@ -25,6 +25,7 @@ const Dashboard = () => {
     }).toString();
     handleGetCharacters(randoms);
     getUserInfo();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleShowDetail = (detail: CharactersInterface) => {

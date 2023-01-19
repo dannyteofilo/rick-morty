@@ -29,7 +29,6 @@ import {
 } from "react-router-dom";
 import { FaUserAlt, FaLock, FaEye } from "react-icons/fa";
 import { singInRequest } from "../../helpers/request";
-import { RequestInterface } from "../../interfaces/helpers/Request.interface";
 import { authProvider } from "../../api/auth";
 
 const CFaUserAlt = chakra(FaUserAlt);
