@@ -1,5 +1,5 @@
 import { Link, Text } from "@chakra-ui/react";
-import { isValidMotionProp, motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 const MenuItem = ({ children, isLast, to = "/", ...rest }: any) => {
   return (

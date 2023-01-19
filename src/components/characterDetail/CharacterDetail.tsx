@@ -17,6 +17,7 @@ const CharacterDetail: React.FC<CharactersInterface> = (detail) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   useEffect(() => {
     onOpen();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [detail]);
   return (
     <div>
