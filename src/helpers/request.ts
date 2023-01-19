@@ -1,8 +1,7 @@
-import { configs } from "../config";
 import { UserLoginInterface } from "../interfaces/userLogin.interface";
 
 export const singInRequest = async (user: UserLoginInterface) => {
-  const url = `${process.env.REACT_APP_API_BASE_URL}api/auth`;
+  const url = `${process.env.REACT_APP_API}/api/auth/login`;
   try {
     const resp: any = await fetch(url, {
       method: "POST",
@@ -18,7 +17,7 @@ export const singInRequest = async (user: UserLoginInterface) => {
 };
 
 export const registerRequest = async (user: UserLoginInterface) => {
-  const url = `${process.env.REACT_APP_API_BASE_URL}/api/users`;
+  const url = `${process.env.REACT_APP_API}/api/users`;
   try {
     const resp: any = await fetch(url, {
       method: "POST",
@@ -34,7 +33,7 @@ export const registerRequest = async (user: UserLoginInterface) => {
 };
 
 export const getCharacters = async (data: string) => {
-  const url = `${configs.URL_API}api/character/${data}`;
+  const url = `${process.env.REACT_APP_API_BASE_URL}api/character/${data}`;
   try {
     const resp: any = await fetch(url);
     return await resp.json();
