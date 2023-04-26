@@ -14,27 +14,30 @@ import {
   Container,
 } from "@chakra-ui/react";
 import Logo from "../../assets/icons/logo.png";
-import { Link as ReachLink } from "react-router-dom";
+import { Link as ReachLink } from 'react-router-dom';
 import { AuthFormData, AuthProps } from '../../interfaces/Authprops.interface'
 import { Password } from "../inputs/Password";
 import { Email } from "../inputs/Email";
+import { isValidPassword } from "../../helpers/common";
 
 
 
-export const AuthForm: FC<AuthProps> = ({ type, onSubmit, showAlert, msgError,onCloseAlert }) => {
+export const AuthForm: FC<AuthProps> = ({ type, onSubmit }) => {
   const [formValid, setFormValid] = useState<boolean>(false);
+  const [error, setError] = useState<string>('')
+  const [showAlert, setShowAlert] = useState<boolean>(false)
   const [formData, setFormData] = useState<AuthFormData>({
     email: "",
     password: "",
     confirmPassword: "",
     acceptTerms: false,
   });
-
+  const isRegister = type === "register";
 
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    showAlert && onCloseAlert()
+    showAlert && setShowAlert(false)
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -52,11 +55,29 @@ export const AuthForm: FC<AuthProps> = ({ type, onSubmit, showAlert, msgError,on
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSubmit(formData);
+    if (isRegister) {
+      const { password, confirmPassword } = formData;
+      if (!isValidPassword(password)) {
+        showError(
+          "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales"
+        );
+        return;
+      } else if (password !== confirmPassword) {
+        showError("Las contraseñas no coinciden");
+        return;
+      } else {
+        onSubmit(formData)
+      }
+    } else {
+      onSubmit(formData)
+    }
   };
 
+  const showError = (msg: string) => {
+    setError(msg);
+    setShowAlert(true);
+  };
 
-  const isRegister = type === "register";
   return (
     <Box minW={{ base: "90%", md: "468px" }}>
       <form onSubmit={handleSubmit}>
@@ -97,7 +118,7 @@ export const AuthForm: FC<AuthProps> = ({ type, onSubmit, showAlert, msgError,on
             <Container maxW="md">
               <Alert status="error">
                 <AlertIcon />
-                <AlertDescription color="red">{msgError}</AlertDescription>
+                <AlertDescription color="red">{error}</AlertDescription>
               </Alert>
             </Container>
           )}
@@ -115,9 +136,9 @@ export const AuthForm: FC<AuthProps> = ({ type, onSubmit, showAlert, msgError,on
             justifyContent="center"
             alignItems="center"
           >
-            <Text fontSize="lg">¿Ya tienes cuenta con nosotros?</Text>
-            <Link as={ReachLink} to="/auth/login" color="#00AFC8">
-              Iniciar sesión
+            <Text fontSize="lg">{isRegister ? '¿Ya tienes cuenta con nosotros?' : '¿Aún no tienes cuenta con nosotros?'}</Text>
+            <Link as={ReachLink} to={isRegister ? "/auth/login" : "/auth/register"} color="#00AFC8">
+              {isRegister ? 'Iniciar sesión' : 'Registrate aquí'}
             </Link>
           </Flex>
         </Stack>

@@ -7,8 +7,12 @@ export interface AuthFormData {
 
 export interface AuthProps {
 	type: 'login' | 'register';
-	showAlert: boolean;
-	msgError: string;
 	onSubmit: (data: AuthFormData) => void;
-	onCloseAlert: () => void;
 }
+
+interface ApiErrorResponse {
+	error?: Error | unknown;
+	msg?: string;
+}
+
+export type ApiResponse<T> = T | ApiErrorResponse;

@@ -1,37 +1,27 @@
+import { ApiResponse } from '../interfaces/Authprops.interface';
 import { UserLoginInterface } from '../interfaces/userLogin.interface';
 
-export const singInRequest = async (user: UserLoginInterface) => {
-	const url = `${process.env.REACT_APP_API}api/auth/login`;
+export async function post<T>(url: string, body: UserLoginInterface): Promise<ApiResponse<T>> {
 	try {
-		const resp: any = await fetch(url, {
+		const resp = await fetch(url, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
-			body: JSON.stringify(user)
-		});
-		return await resp.json();
-	} catch (error) {
-		console.error(error);
-	}
-};
-
-export const registerRequest = async (user: UserLoginInterface) => {
-	const url = `${process.env.REACT_APP_API}api/users`;
-	try {
-		const resp: any = await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(user)
+			body: JSON.stringify(body)
 		});
 		return await resp.json();
 	} catch (error) {
 		console.error(error);
 		return { error, msg: 'Failed request' };
 	}
-};
+}
+
+export async function authRequest(endPoint:string,user: UserLoginInterface): Promise<ApiResponse<unknown>> {
+	const url = `${process.env.REACT_APP_API}api/${endPoint}`;
+	return post(url, user);
+}
+
 
 export const getCharacters = async (data: string) => {
 	const url = `${process.env.REACT_APP_API_BASE_URL}api/character/${data}`;

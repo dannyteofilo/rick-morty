@@ -1,7 +1,7 @@
 import { Box, Stack } from "@chakra-ui/react";
 import MenuItem from "../menuItem/MenuItem";
 
-const MenuLinks = ({ isOpen }: any) => {
+const MenuLinks = ({ isOpen, click }: any) => {
   return (
     <Box
       display={{ base: isOpen ? "block" : "none" }}
@@ -18,7 +18,7 @@ const MenuLinks = ({ isOpen }: any) => {
         <MenuItem to="/"> Explore </MenuItem>
         <MenuItem to="/"> Blog </MenuItem>
         <MenuItem to="/"> Contact </MenuItem>
-        <MenuItem to="/auth/login" isLast>
+        <MenuItem onClick={click} isLast>
           Salir
         </MenuItem>
       </Stack>
