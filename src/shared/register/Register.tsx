@@ -3,7 +3,7 @@ import { FC, useEffect } from "react";
 import { useToast } from "@chakra-ui/react";
 import { AuthForm } from "../../components/authform/AuthForm";
 import { AuthFormData } from "../../interfaces/Authprops.interface";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useAppContext } from "../../hooks/useAppContext";
 import AuthLayout from "../../layouts/AuthLayout";
@@ -48,7 +48,7 @@ const Login: FC = () => {
 
   const redirectToHomeIfAuth = () => {
     if (authProvider.isAuth()) {
-      return <Navigate to="/" state={{ from: location }} replace />;
+      navigate(from, { replace: true });
     }
   };
 
