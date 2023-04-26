@@ -27,7 +27,12 @@ export const Login: FC = () => {
   const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
-    if (user) {
+    redirectToHomeIfAuth()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    if (user?.token) {
       localStorage.setItem("user", JSON.stringify(user));
       navigate(from, { replace: true });
     }
@@ -51,6 +56,7 @@ export const Login: FC = () => {
   }
 
   const redirectToHomeIfAuth = () => {
+    console.log('me ejecuto: ', authProvider.isAuth())
     if (authProvider.isAuth()) {
       return <Navigate to="/" state={{ from: location }} replace />;
     }
@@ -58,7 +64,6 @@ export const Login: FC = () => {
 
   return (
     <>
-      {redirectToHomeIfAuth()}
       <AuthLayout>
         <Stack
           flexDir="column"
