@@ -1,5 +1,5 @@
-import { Box, Flex, Text, Image, Spinner } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Box, Flex, Text, Image } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { authProvider } from "../api/auth";
 import CarouselSlide from "../components/Carousel/Carousel";
 import CharacterDetail from "../components/characterDetail/CharacterDetail";

@@ -23,6 +23,7 @@ const Login: FC = () => {
       localStorage.setItem("user", JSON.stringify(user));
       navigate(from, { replace: true });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   useEffect(() => {
@@ -34,6 +35,7 @@ const Login: FC = () => {
         isClosable: true,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorRequest])
 
   const handleRegister = (data: AuthFormData) => {

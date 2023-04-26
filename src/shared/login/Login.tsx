@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import {
   Stack,
   Avatar,
@@ -31,6 +31,7 @@ export const Login: FC = () => {
       localStorage.setItem("user", JSON.stringify(user));
       navigate(from, { replace: true });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export const Login: FC = () => {
         isClosable: true,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorRequest])
 
   const handleSubmit = (data: AuthFormData) => {
