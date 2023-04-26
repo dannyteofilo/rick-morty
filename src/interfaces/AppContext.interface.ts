@@ -4,7 +4,7 @@ import { AuthUser } from './userLogin.interface';
 
 export interface AuthContextProps {
 	user: AuthUser | null;
-	setUser: Dispatch<AuthUser>;
+	setUser: Dispatch<AuthUser | null>;
 	characters: Array<CharactersInterface>;
 	setCharacters: Dispatch<Array<CharactersInterface>>;
 	setLoading: Dispatch<boolean>;
