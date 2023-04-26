@@ -5,6 +5,7 @@ import Login from "./shared/login/Login";
 import Register from "./shared/register/Register";
 import Dashboard from "./pages/Dashboard";
 import { authProvider } from "./api/auth";
+import LoadingOverlay from "./components/Loading/LoadingOverlay";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           }
         />
       </Routes>
+      <LoadingOverlay />
     </AppProvider>
   );
 }

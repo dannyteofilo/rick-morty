@@ -1,11 +1,12 @@
-import { Dispatch } from "react";
-import { CharactersInterface } from "./Characters.interface";
+import { Dispatch } from 'react';
+import { CharactersInterface } from './Characters.interface';
+import { AuthUser } from './userLogin.interface';
 
 export interface AuthContextProps {
-  user: string;
-  setUser: Dispatch<string>;
-  characters: Array<CharactersInterface>;
-  setCharacters: Dispatch<Array<CharactersInterface>>;
-  setLoading: Dispatch<boolean>;
-  loading: boolean;
+	user: AuthUser | null;
+	setUser: Dispatch<AuthUser>;
+	characters: Array<CharactersInterface>;
+	setCharacters: Dispatch<Array<CharactersInterface>>;
+	setLoading: Dispatch<boolean>;
+	loading: boolean;
 }
