@@ -6,7 +6,6 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import {
-  Navigate,
   useLocation,
   useNavigate,
 } from "react-router-dom";
@@ -56,9 +55,8 @@ export const Login: FC = () => {
   }
 
   const redirectToHomeIfAuth = () => {
-    console.log('me ejecuto: ', authProvider.isAuth())
     if (authProvider.isAuth()) {
-      return <Navigate to="/" state={{ from: location }} replace />;
+      navigate(from, { replace: true });
     }
   };
 

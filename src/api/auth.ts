@@ -16,7 +16,7 @@ const authProvider = {
 	userInfo() {
 		let userString = localStorage.getItem('user');
 		let currentUser = userString ? JSON.parse(userString) : undefined;
-		return currentUser && currentUser.token;
+		return currentUser && currentUser.user;
 	}
 };
 
