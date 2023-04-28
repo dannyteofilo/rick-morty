@@ -1,5 +1,5 @@
-import { Box, Flex, Text, Image, Spinner } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Box, Flex, Text, Image } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { authProvider } from "../api/auth";
 import CarouselSlide from "../components/Carousel/Carousel";
 import CharacterDetail from "../components/characterDetail/CharacterDetail";
@@ -12,7 +12,7 @@ import { CharactersInterface } from "../interfaces/Characters.interface";
 
 
 const Dashboard = () => {
-  const { characters, loading } = useAppContext();
+  const { characters } = useAppContext();
   const [user, setUser] = useState("");
   const { handleGetCharacters } = useFetchData();
   const [detail, setDetail] = useState<CharactersInterface | null>(null);
@@ -25,7 +25,7 @@ const Dashboard = () => {
     }).toString();
     handleGetCharacters(randoms);
     getUserInfo();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleShowDetail = (detail: CharactersInterface) => {
@@ -56,7 +56,6 @@ const Dashboard = () => {
           <CarouselSlide></CarouselSlide>
         </Flex>
         <Flex flexWrap="wrap" mb="2" textAlign="center" justifyContent="center">
-          {loading && <Spinner color="red.500" size="xl" />}
           {characters.map((item) => (
             <Box
               cursor="pointer"

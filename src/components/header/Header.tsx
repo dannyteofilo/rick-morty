@@ -2,6 +2,7 @@ import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import IconLogo from "../../assets/icons/logo.png";
 import MenuLinks from "../menuLinks/MenuLinks";
+import { authProvider } from "../../api/auth";
 
 const CloseIcon = () => (
   <svg width="24" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
@@ -28,6 +29,9 @@ const MenuIcon = () => (
 export const Header = ({ userName }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const handleLogOut = () => {
+    authProvider.logOut();
+  };
   return (
     <Flex
       as="nav"
@@ -41,7 +45,7 @@ export const Header = ({ userName }: any) => {
     >
       <Logo></Logo>
       <MenuToggle toggle={toggle} isOpen={isOpen} />
-      <MenuLinks isOpen={isOpen} />
+      <MenuLinks isOpen={isOpen} click={handleLogOut} />
       <UserInfo name={userName} />
     </Flex>
   );
