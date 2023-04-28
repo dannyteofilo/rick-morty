@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Demo
 
-Open [https://63c9bf44590e393bade68c75--gilded-nougat-3c1f2d.netlify.app/) to view the demo app.
+Open [https://gilded-nougat-3c1f2d.netlify.app/) to view the demo app.
 
 
 ## Available Scripts
